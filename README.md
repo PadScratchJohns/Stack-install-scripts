@@ -10,3 +10,7 @@ chmod +x /tmp/script_name.sh
 ./tmp/script_name.sh 
 
 Depending on the script it might be better to reboot the box when completed. 
+
+Homer: 
+apt-get install -y libluajit-5.1-common libluajit-5.1-dev lsb-release wget curl git
+sudo echo yes | /tmp/homer7.sh
