@@ -1,5 +1,7 @@
 #!/bin/bash
 
+sudo apt-get install -y libluajit-5.1-common libluajit-5.1-dev lsb-release wget curl git
+
 [[ "$TRACE" ]] && { set -x; set -o functrace; }
 
 PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin
@@ -127,7 +129,7 @@ detect_linux_distribution() {
              esac
              ;;
     Debian ) case "$distro_version" in
-            10* | 11* ) SETUP_ENTRYPOINT="setup_debian"
+            10* | 11* | 12* ) SETUP_ENTRYPOINT="setup_debian"
                     return 0 ;; # Suported Distribution
                *  ) return 1 ;; # Unsupported Distribution
              esac
@@ -210,7 +212,7 @@ banner_end() {
   echo "         'systemctl start|stop heplify'"
   echo
   echo "     * Access HOMER UI:"
-  echo "         http://$my_primary_ip:9080"
+  echo "         http://$my_primary_ip:443"
   echo "         [default: admin/sipcapture]"
   echo
   echo "     * Send HEP/EEP Encapsulated Packets to:"
@@ -282,15 +284,12 @@ install_homer(){
 	  local cmd_apt_get=$(locate_cmd "apt-get")
 	  $cmd_curl -s https://packagecloud.io/install/repositories/qxip/sipcapture/script.deb.sh | sudo bash
 	  $cmd_apt_get install homer-app heplify-server -y
-  else
-	  local cmd_yum=$(locate_cmd "yum")
-	  $cmd_curl -s https://packagecloud.io/install/repositories/qxip/sipcapture/script.rpm.sh | sudo bash
-	  $cmd_yum install homer-app heplify-server -y
   fi
 
   $cmd_sed -i -e "s/homer_user/$DB_USER/g" /usr/local/homer/etc/webapp_config.json
   $cmd_sed -i -e "s/homer_password/$DB_PASS/g" /usr/local/homer/etc/webapp_config.json
-
+  $cmd_sed -i "s/9080/443/g" /usr/local/homer/etc/webapp_config.json
+  
   local cmd_homerapp=$(locate_cmd "homer-app")
   $cmd_homerapp -create-table-db-config
   $cmd_homerapp -populate-table-db-config
@@ -342,7 +341,7 @@ fi
 
 }
 
-# Ubuntu 20.04 install latest postgresql from apt
+# Debian/Ubuntu install latest postgresql from apt
 setup_debian() {
   local base_pkg_list="software-properties-common make cmake gcc g++ dirmngr sudo python3-dev net-tools"
   local cmd_apt_get=$(locate_cmd "apt-get")
