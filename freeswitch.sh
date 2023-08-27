@@ -150,7 +150,6 @@ reboot_selection(){
 
 banner_start() {
     clear;
-    detect_linux_distribution
     echo "Installing FreeSWITCH on $distro_name"
     echo "Standby"
     echo;
@@ -165,7 +164,8 @@ banner_end() {
 
 # Actual install logic
 start_app() {
-
+    detect_linux_distribution
+    
     banner_start
 
     $SETUP_ENTRYPOINT
