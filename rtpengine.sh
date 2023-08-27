@@ -2,6 +2,14 @@
 
 
 sudo apt-get install -y lsb-release
+REL=10.5
+# version-8.5 # older LTS release
+# version-9.5 # old LTS release
+# version-10.5 # latest LTS release
+# version-11.3 # previous newest release
+# version-11.4 # current newest release
+# version-latest # always the latest and newest release
+# version-beta # daily builds of the current git master
 
 
 detect_linux_distribution() {
@@ -12,8 +20,10 @@ detect_linux_distribution() {
   local cmd_lsb_release=$(locate_cmd "lsb_release")
   local distro_name=$($cmd_lsb_release -si)
   local distro_version=$($cmd_lsb_release -sr)
+  local distro_codename=$($cmd_lsb_release -sc)
   DISTRO="$distro_name"
   DISTRO_VERSION="$distro_version"
+  DISTRO_CODENAME="$distro_codename"
 
   case "$distro_name" in
     Ubuntu ) case "$distro_version" in
@@ -32,22 +42,24 @@ detect_linux_distribution() {
  esac
 }
 
-
 # Latest debian release:
 setup_debian() {
-
-
+    echo "deb [signed-by=/usr/share/keyrings/dfx.at-rtpengine-archive-keyring.gpg] https://rtpengine.dfx.at/$REL $DISTRO_CODENAME main" | sudo tee /etc/apt/sources.list.d/dfx.at-rtpengine.list
+    sudo apt install linux-headers-$(uname -r)
+    sudo apt update
+    sudo apt install -y rtpengine
 }
 
-# latest Ubuntu release: or you specific choice 
+# latest Ubuntu release: IP Tables issues here so no kernel forwarding.
 setup_ubuntu() {
-
+    echo "No iptables-dev in focal/Ubuntu since 20.04"
+    echo "You are SOL unless you don't want kernel forwarding, then you are in luck."
 }
 
 reboot_selection(){
     echo "Install done. Press any key to reboot..."
     read -s -n 1
-    echo "You pressed a key! Continuing..."
+    echo "You pressed a key! Rebooting now..."
     sudo reboot
 }
 
