@@ -2,6 +2,7 @@
 
 
 sudo apt-get install -y lsb-release
+# Choose RTPengine version 
 REL=10.5
 # version-8.5 # older LTS release
 # version-9.5 # old LTS release
