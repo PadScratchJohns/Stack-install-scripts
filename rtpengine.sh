@@ -1,6 +1,5 @@
 #!/bin/bash
 
-
 sudo apt-get install -y lsb-release
 # Choose RTPengine version 
 REL=10.5
