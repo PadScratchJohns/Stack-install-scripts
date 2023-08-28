@@ -43,7 +43,7 @@ detect_linux_distribution() {
         detect_linux_distribution
 }
 
-setup_apt(){
+setup_apt() {
     # Add the key
     wget -O- http://deb.kamailio.org/kamailiodebkey.gpg | sudo apt-key add -
     # Our GPG key fingerprint is E79A CECB 87D8 DCD2 3A20  AD2F FB40 D3E6 508E A4C8 - make sure you verify it and check it in a key store before trusting it.
@@ -77,7 +77,7 @@ setup_manual() {
     systemctl start kamailio
 }
 
-reboot_selection(){
+reboot_selection() {
     echo "Install done. Press any key to reboot..."
     read -s -n 1
     echo "You pressed a key! Rebooting now..."

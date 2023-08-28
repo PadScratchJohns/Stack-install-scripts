@@ -56,7 +56,7 @@ setup_ubuntu() {
     echo "You are SOL unless you don't want kernel forwarding, then you are in luck."
 }
 
-reboot_selection(){
+reboot_selection() {
     echo "Install done. Press any key to reboot..."
     read -s -n 1
     echo "You pressed a key! Rebooting now..."
@@ -91,7 +91,6 @@ start_app() {
     reboot_selection
     
 }
-
 
 ######################################################################
 #

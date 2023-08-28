@@ -140,7 +140,7 @@ setup_ubuntu() {
     # Reboot here - make sure to add service file as well. otherwise you have to trigger this via /usr/sbin/freeswitch
 }
 
-reboot_selection(){
+reboot_selection() {
     echo "Install done. Press any key to reboot..."
     read -s -n 1
     echo "You pressed a key! Continuing..."

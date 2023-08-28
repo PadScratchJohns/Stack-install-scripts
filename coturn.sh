@@ -33,7 +33,7 @@ detect_linux_distribution() {
         detect_linux_distribution
 }
 
-setup_apt(){
+setup_apt() {
     sudo apt-get install -y coturn 
 }
 
@@ -56,7 +56,7 @@ setup_manual() {
     mkdir /var/log/coturn
 }
 
-reboot_selection(){
+reboot_selection() {
     echo "Install done. Press any key to reboot..."
     read -s -n 1
     echo "You pressed a key! Rebooting now..."
