@@ -11,12 +11,12 @@ detect_linux_distribution() {
   # Function to see if a specific linux distribution is supported by this script
   # If it is supported then the global variable SETUP_ENTRYPOINT is set to the
   # function to be executed for the FS setup
-
-  local cmd_lsb_release=$(locate_cmd "lsb_release")
-  local distro_name=$($cmd_lsb_release -si)
-  local distro_version=$($cmd_lsb_release -sr)
+  local distro_name=$(lsb_release -si)
+  local distro_version=$(lsb_release -sr)
+  local distro_codename=$(lsb_release -sc)
   DISTRO="$distro_name"
   DISTRO_VERSION="$distro_version"
+  DISTRO_CODENAME="$distro_codename"
 
   case "$distro_name" in
     Ubuntu ) case "$distro_version" in

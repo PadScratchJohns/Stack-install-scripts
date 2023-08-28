@@ -19,28 +19,32 @@ detect_linux_distribution() {
   # Function to see if a specific linux distribution is supported by this script
   # If it is supported then the global variable SETUP_ENTRYPOINT is set to the
   # function to be executed for the FS setup
-
-    local cmd_lsb_release=$(locate_cmd "lsb_release")
-    local distro_name=$($cmd_lsb_release -si)
-    local distro_version=$($cmd_lsb_release -sr)
-    local distro_codename=$($cmd_lsb_release -sc)
-    DISTRO="$distro_name"
-    DISTRO_VERSION="$distro_version"
-    DISTRO_CODENAME="$distro_codename"
+  local distro_name=$(lsb_release -si)
+  local distro_version=$(lsb_release -sr)
+  local distro_codename=$(lsb_release -sc)
+  DISTRO="$distro_name"
+  DISTRO_VERSION="$distro_version"
+  DISTRO_CODENAME="$distro_codename"
 # Also get entrypoint for the install
-    echo "Press 1 to use apt (Have you checked the modules are in apt?)"
-    echo "Press 2 to install manually (Modules needed not in apt repo)"
-    read -n 1 -p "Input Selection:" mainmenuinput
-    if [ "$mainmenuinput" = "1" ]; then
-            SETUP_ENTRYPOINT="setup_apt"
-    elif [ "$mainmenuinput" = "2" ]; then
-            SETUP_ENTRYPOINT="setup_manual"
-    else
-        echo "You have entered an invallid selection!"
-        echo "Please try again!"
-        echo ""
-        echo "Press any key to continue..."
-        detect_linux_distribution
+  echo "Press 1 to use apt (Have you checked the modules are in apt?)"
+  echo "Press 2 to install manually (Modules needed not in apt repo)"
+  options=("1" "2")
+  select choice in "${options[@]}"
+  do 
+    case $choice in
+      "1")
+        SETUP_ENTRYPOINT="setup_apt"
+        break
+        ;;
+      "2")
+        SETUP_ENTRYPOINT="setup_manual"
+        break
+        ;;
+      *)
+        echo "Invalid option"
+        ;;
+  esac
+  done
 }
 
 setup_apt() {
