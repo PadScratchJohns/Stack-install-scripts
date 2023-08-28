@@ -55,10 +55,23 @@ setup_ubuntu() {
 }
 
 reboot_selection() {
-    echo "Install done. Press any key to reboot..."
-    read -s -n 1
-    echo "You pressed a key! Rebooting now..."
-    sudo reboot
+  echo "Install done. Press 1 to reboot..."
+  echo "Otherwise press any other key to exit"
+  options=("1")
+  select choice in "${options[@]}"
+  do 
+    case $choice in
+      "1")
+        echo "Rebooting now..."
+        sudo reboot
+        break
+        ;;
+      *)
+        echo "You pressed a key! Exiting..."
+        break
+        ;;
+  esac
+  done
 }
 
 
