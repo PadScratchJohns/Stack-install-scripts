@@ -42,6 +42,8 @@ detect_linux_distribution() {
 
 # Latest debian release:
 setup_debian() {
+    wget https://rtpengine.dfx.at/latest/pool/main/r/rtpengine-dfx-repo-keyring/rtpengine-dfx-repo-keyring_1.0_all.deb
+    sudo dpkg -i rtpengine-dfx-repo-keyring_1.0_all.deb
     echo "deb [signed-by=/usr/share/keyrings/dfx.at-rtpengine-archive-keyring.gpg] https://rtpengine.dfx.at/$REL $DISTRO_CODENAME main" | sudo tee /etc/apt/sources.list.d/dfx.at-rtpengine.list
     sudo apt install linux-headers-$(uname -r)
     sudo apt update
