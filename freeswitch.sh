@@ -1,9 +1,8 @@
 #!/bin/bash
-
+sudo apt-get install -y lsb-release
 # For the Debian APT install you need a signalwire account and token. You can get one from here:
 # https://developer.signalwire.com/freeswitch/FreeSWITCH-Explained/Installation/HOWTO-Create-a-SignalWire-Personal-Access-Token_67240087/
-
-sudo apt-get install -y lsb-release
+sig_token=YOURSIGNALWIRETOKEN
 # Change this here to install a different version. 
 fs_version="v1.10.10"
 
@@ -39,7 +38,7 @@ detect_linux_distribution() {
 # Latest debian release:
 setup_debian() {
     # See 2nd line in script for this
-    TOKEN=YOURSIGNALWIRETOKEN
+    TOKEN=$sig_token
 
     sudo apt update && sudo apt install -y gnupg2 wget
 
