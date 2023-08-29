@@ -1,4 +1,7 @@
 #!/bin/bash
+# Single touch install Homer7.7 with DB on the box.
+# Support for Ubuntu 20.04/22.04 as well as Debian 10, 11 & 12
+# You need to be root to run this. 
 
 sudo apt-get install -y libluajit-5.1-common libluajit-5.1-dev lsb-release wget curl git
 
