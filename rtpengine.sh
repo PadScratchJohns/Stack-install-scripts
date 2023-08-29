@@ -53,6 +53,7 @@ setup_debian() {
 # latest Ubuntu release: IP Tables issues here so no kernel forwarding.
 setup_ubuntu() {
     echo "No iptables-dev in focal/Ubuntu since 20.04"
+    echo "But it is in 23.04 - so just wait for it if you wanna use Ubuntu https://manpages.ubuntu.com/manpages/lunar/en/man1/rtpengine.1.html"
     echo "You are SOL unless you don't want kernel forwarding, then you are in luck."
 }
 
