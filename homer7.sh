@@ -18,9 +18,11 @@ my_pid=$$
 
 
 # HOMER Options, defaults
+# Change here for external DB and select no for postgres
 DB_USER="homer_user"
 DB_PASS=$(dd if=/dev/urandom bs=1 count=20 2>/dev/null | base64 | sed 's/[=\+//]//g')
 DB_HOST="localhost"
+
 LISTEN_PORT="9060"
 CHRONOGRAF_LISTEN_PORT="8888"
 INSTALL_INFLUXDB=""
