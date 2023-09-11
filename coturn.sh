@@ -52,8 +52,8 @@ setup_manual() {
   git clone --branch $version --single-branch https://github.com/coturn/coturn.git
   cd /usr/coturn
   nano configure
-# Change config location to /etc
-# Change the binary location as /usr - was /usr/local
+# Change CONFDIR location to /etc
+# Change the PREFIX location as /usr - was /usr/local
 # Or simlink after testing this
   ./configure
   make && make install
