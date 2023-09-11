@@ -85,6 +85,9 @@ setup_ubuntu() {
 
     git clone https://github.com/freeswitch/spandsp /usr/local/src/spandsp
     cd /usr/local/src/spandsp
+# Issue here around //#include "spandsp/private/v80.h"
+# make sure to use an earlier commit: git checkout *commit* 
+
     ./bootstrap.sh
     ./configure
     sudo make && sudo make install
