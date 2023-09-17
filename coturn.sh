@@ -1,10 +1,10 @@
 #!/bin/bash
 
 sudo apt-get install -y lsb-release
-# No promtheus support in apt version 4.5.1 - for this you need >= 4.5.2
-# For 4.5.2 with prometheus support you need to compile from scratch:
-version="4.5.2
-"
+# No promtheus support in Ubuntu apt version 4.5.1 - for this you need >= 4.5.2
+# For 4.5.2 with prometheus support you need to compile from scratch for Ubuntu.
+# Debian repo has 4.5.2 now for bookworm 
+version="4.5.2"
 detect_linux_distribution() {
   # Function to see if a specific linux distribution is supported by this script
   # If it is supported then the global variable SETUP_ENTRYPOINT is set to the
@@ -15,6 +15,24 @@ detect_linux_distribution() {
   DISTRO="$distro_name"
   DISTRO_VERSION="$distro_version"
   DISTRO_CODENAME="$distro_codename"
+  case "$distro_name" in
+    Ubuntu ) case "$distro_version" in
+               20.04* | 22.04* ) SETUP_ENTRYPOINT="ubuntu_choice"
+                    return 0 ;; # Suported Distribution
+               *  ) return 1 ;; # Unsupported Distribution
+             esac
+             ;;
+    Debian ) case "$distro_version" in
+            10* | 11* | 12* ) SETUP_ENTRYPOINT="setup_apt"
+                    return 0 ;; # Suported Distribution
+               *  ) return 1 ;; # Unsupported Distribution
+             esac
+             ;;
+    *      ) return 1 ;; # Unsupported Distribution
+ esac
+}
+
+ubuntu_choice() {
 # Also get entrypoint for the install
   echo "Press 1 to use apt (No Prometheus support)"
   echo "Press 2 to install manually (with Prometheus support)"
