@@ -40,21 +40,20 @@ detect_linux_distribution() {
  esac
 }
 
-# Latest debian release:
+# Latest debian release in apt is 10.5 stable
 setup_debian() {
-    wget https://rtpengine.dfx.at/latest/pool/main/r/rtpengine-dfx-repo-keyring/rtpengine-dfx-repo-keyring_1.0_all.deb
-    sudo dpkg -i rtpengine-dfx-repo-keyring_1.0_all.deb
-    echo "deb [signed-by=/usr/share/keyrings/dfx.at-rtpengine-archive-keyring.gpg] https://rtpengine.dfx.at/$REL $DISTRO_CODENAME main" | sudo tee /etc/apt/sources.list.d/dfx.at-rtpengine.list
-    sudo apt install linux-headers-$(uname -r)
-    sudo apt update
-    sudo apt install -y rtpengine
+    apt update
+    apt install -y rtpengine
 }
 
-# latest Ubuntu release: IP Tables issues here so no kernel forwarding.
+# latest Ubuntu release: not from apt, but from a ppa 
 setup_ubuntu() {
     echo "No iptables-dev in focal/Ubuntu since 20.04"
     echo "But it is in 23.04 - so just wait for it if you wanna use Ubuntu https://manpages.ubuntu.com/manpages/lunar/en/man1/rtpengine.1.html"
-    echo "You are SOL unless you don't want kernel forwarding, then you are in luck."
+    echo "For now we are using a ppa unless it is in Ubuntu LTS"
+    sudo add-apt-repository ppa:davidlublink/rtpengine
+    sudo apt update
+    sudo apt-get install -y ngcp-rtpengine
 }
 
 reboot_selection() {
