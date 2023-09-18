@@ -1,9 +1,9 @@
 #!/bin/bash
 
 sudo apt-get install -y lsb-release
-# No promtheus support in Ubuntu apt version 4.5.1 - for this you need >= 4.5.2
+# No promtheus support in Ubuntu 20.04 apt version 4.5.1 - for this you need >= 4.5.2
 # For 4.5.2 with prometheus support you need to compile from scratch for Ubuntu.
-# Debian repo has 4.5.2 now for bookworm 
+# Debian repo has 4.5.2 now for bookworm and Ubuntu >22.04
 version="4.5.2"
 detect_linux_distribution() {
   # Function to see if a specific linux distribution is supported by this script
@@ -34,8 +34,8 @@ detect_linux_distribution() {
 
 ubuntu_choice() {
 # Also get entrypoint for the install
-  echo "Press 1 to use apt (No Prometheus support)"
-  echo "Press 2 to install manually (with Prometheus support)"
+  echo "Press 1 to use apt (No Prometheus support for 20.04 - ok for other Debian based distros)"
+  echo "Press 2 to install manually (with Prometheus support for 20.04)"
   options=("1" "2")
   select choice in "${options[@]}"
   do 
