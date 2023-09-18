@@ -288,6 +288,8 @@ install_homer(){
   if [ -f /etc/debian_version ]; then
 	  local cmd_apt_get=$(locate_cmd "apt-get")
 	  $cmd_curl -s https://packagecloud.io/install/repositories/qxip/sipcapture/script.deb.sh | sudo bash
+    $cmd_sed -i -e "s/jammy/focal/g" /etc/apt/sources.list.d/qxip_sipcapture.list
+    $cmd_apt_get update
 	  $cmd_apt_get install homer-app heplify-server -y
   fi
 
