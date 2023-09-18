@@ -86,8 +86,10 @@ setup_ubuntu() {
     git clone https://github.com/freeswitch/spandsp /usr/local/src/spandsp
     cd /usr/local/src/spandsp
 # Issue here around //#include "spandsp/private/v80.h"
-# make sure to use an earlier commit: git checkout *commit* 
-
+# make sure to use an earlier commit: git checkout 4ee5eac
+# For auto conf issues just change the pre req for it using the comit. 
+# cd /usr/src/spandsp/ 
+# sed -i 's/AC_PREREQ([2.71])/AC_PREREQ([2.69])/g' configure.ac
     ./bootstrap.sh
     ./configure
     sudo make && sudo make install
