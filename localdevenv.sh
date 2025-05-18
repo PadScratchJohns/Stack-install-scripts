@@ -88,5 +88,5 @@ echo "******************"
 # "minikube start --nodes 3"  Starts a Kubernetes cluster with 3 nodes.
 # "minikube stop" - Stops the cluster while saving its state. Running minikube start will resume it from the last state.
 # "minikube delete" - Deletes the Kubernetes cluster.
-
+[[ "$0" == "$BASH_SOURCE" ]] && start_install
 # That's all folks!
